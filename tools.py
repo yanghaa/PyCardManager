@@ -72,3 +72,64 @@ def search_card():
     """查询名片"""
     print("-"*symbol_number)
     print("查询名片")
+
+    # 提示输入
+    find_name = input("请输入要查找的姓名：")
+    # 遍历查询如果没有则提示
+    for card_dict in card_list:
+
+        if card_dict["name"] == find_name:
+            for name in ["姓名", "电话", "QQ", "email"]:
+                print(name, end="\t\t")
+            print("")
+            print("="*symbol_number)
+            print("%s\t\t%s\t\t%s\t\t%s\t\t" % (
+                card_dict["name"], card_dict["phone"], card_dict["qq"], card_dict["email"]))
+            print("="*symbol_number)
+
+            # TODO 针对找到的名片进行修改
+            deal_card(card_dict)
+            break
+
+    else:
+
+        print("没有找到%s" % find_name)
+
+
+def deal_card(find_dict):
+    """处理查询到的名片"""
+    action_str = input("请输入要进行的操作：1 修改 2 删除 0 返回上级菜单！")
+
+    if action_str in ["1", "2", "0"]:
+        if action_str == "1":
+            print("请输入要正确的信息：")
+            find_dict["name"] = input_card_info(
+                find_dict["name"], "请输入姓名[回车不修改]:")
+            find_dict["phone"] = input_card_info(
+                find_dict["phone"], "请输入电话[回车不修改]：")
+            find_dict["qq"] = input_card_info(find_dict["qq"], "请输入QQ[回车不修改]：")
+            find_dict["email"] = input_card_info(
+                find_dict["email"], "请输入email[回车不修改]：")
+            print("修改成功！")
+        elif action_str == "2":
+            print("删除名片")
+            card_list.remove(find_dict)
+            print("成功删除了%s的名片。" % find_dict["name"])
+        elif action_str == "3":
+            return
+
+    else:
+        print("请输入正确的功能序号！1 修改 2 删除 0 返回上级菜单！")
+        deal_card(find_dict)
+
+
+def input_card_info(dict_value, tip_message):
+
+    # 1提示用户输入
+    result_str = input(tip_message)
+    # 2针对输入判断修改
+    if len(result_str) > 0:
+        return result_str
+    # 3如果没输入则保留原值
+    else:
+        return dict_value
