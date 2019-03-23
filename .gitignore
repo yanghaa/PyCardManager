@@ -1,0 +1,6 @@
+*.pyc
+*/*.pyc
+.DS_Store
+.vscode/launch.json
+.vscode/.ropeproject/config.py
+.vscode/.ropeproject/objectdb
