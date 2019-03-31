@@ -13,4 +13,4 @@ Exercise for Python without Class Object
 - check all input
 - Using class object method to manage data
 - save data to ODB
-- ... GPGCHECK
+- ... 
