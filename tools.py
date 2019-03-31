@@ -1,7 +1,30 @@
 # coding=utf-8
 
 # 记录所有名片字典
+import ast
 card_list = []
+
+# TODO: 解决split后偶尔出现‘’的情况并分析原理
+try:
+    with open('./data.txt', 'r') as card_list_handler:
+        card_list_str = card_list_handler.read()
+        card_list_quote = card_list_str.split(
+            '\n')  # 不知道为什么转换后时而出现‘’未做排错，后面except了
+        # print(card_list_quote)
+        # print(len(card_list_quote))
+        if len(card_list_quote):
+            for each_str in card_list_quote:
+                card_list.append(ast.literal_eval(each_str))
+
+except IOError:  # 忽略第一次运行文件不存在的情况
+    pass
+except SyntaxError:  # 忽略引号的影响
+    pass
+
+print(card_list)
+# print('%s' % card_list)
+
+
 symbol_number = 60
 
 
@@ -87,7 +110,6 @@ def search_card():
                 card_dict["name"], card_dict["phone"], card_dict["qq"], card_dict["email"]))
             print("="*symbol_number)
 
-            # TODO 针对找到的名片进行修改
             deal_card(card_dict)
             break
 
@@ -133,3 +155,10 @@ def input_card_info(dict_value, tip_message):
     # 3如果没输入则保留原值
     else:
         return dict_value
+
+
+def savedata():
+    # 保存list数据到文件
+    with open('./data.txt', 'w') as card_list_handler:
+        for item in card_list:
+            card_list_handler.write('%s\n' % item)

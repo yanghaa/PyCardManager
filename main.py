@@ -1,6 +1,7 @@
 #! /Users/ys/git_workspace/py3env/bin/python
 
 # coding=utf-8
+import ast
 import tools
 
 while True:
@@ -29,6 +30,8 @@ while True:
 
     elif action_str == "0":
         print("欢迎再次使用")
+        # card_list_handle.write(card_list)
+        tools.savedata()
         break
 
     else:
